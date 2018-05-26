@@ -9,4 +9,7 @@ urlpatterns = [
         view=views.AppView.as_view(),
         name='app_view'
     ),
+    path('aboutus' ,
+         view=views.AboutUs,
+         name='aboutus')        
 ]
