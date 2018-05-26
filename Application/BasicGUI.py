@@ -13,9 +13,11 @@ from time import sleep
 
 
 #Auth Keys
-###############################################
-#Access tokens is deleted 
-###############################################
+consumer_key = "eDEdQ90OgVOroTiXkE3wh5AK2"
+consumer_secret = "EJnbrFCsoJjjlgruSOXYhc3ss0ZJNuJz9AmFsMVTidfL3Ixb1A"
+access_token = "988851276040556544-CLPO0mzQ8bLn4Xlxa4xLSYgXny3ngMj"
+access_token_secret = "qLgl0pN4VqWshkW5pBIat8LWAhiku0U16diTGeAnzkiqE"
+
 
 #Authuntication Process
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
