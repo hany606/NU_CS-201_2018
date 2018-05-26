@@ -19,20 +19,30 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)	
 
 
-itemsCount = 5
-tweets = tweepy.Cursor(api.search, q="#SALAH_Dont_Cry").items(itemsCount)
+itemsCount = 1
+tweets = tweepy.Cursor(api.search, q="#Ramos",lang="en").items(itemsCount)
 
 
 listTweets = []
 while True:
     try:
         tweet = tweets.next().text
+        #print(tweet)
+        newTweet = ""
+        finTweet = ""
         
         match = re.search('#.*',tweet)
-        newTweet = tweet.replace(match.group(),"")
+        if(match):
+            newTweet += tweet.replace(match.group(),"")
+            
         match = re.search('\\n',tweet)
-        newTweet2 = newTweet.replace(match.group()," ")
-        listTweets.append(newTweet2)
+        if(match):
+            newTweet2 = newTweet.replace(match.group()," ")
+            finTweet += newTweet2
+        else:
+            finTweet += newTweet
+            
+        listTweets.append(finTweet)
 #        print(tweet)
 #        match = re.search(r'(#.*)|(\n)',tweet)
 #        print(match)
@@ -65,3 +75,5 @@ for sentence in blob.sentences:
         tweetsResult.append((res,0,str(sentence)))
 
 print(tweetsResult)
+
+
