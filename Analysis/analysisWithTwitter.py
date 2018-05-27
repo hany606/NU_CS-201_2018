@@ -6,17 +6,16 @@ Created on Sat May 26 21:31:50 2018
 """
 
 from textblob import TextBlob
-
 import tweepy
 import re
-import time
-
+import pandas as pd
 
 def cleanTweet(tweet):
     return ' '.join(re.sub("(@[A-Za-z0-9])|(#.*)|(\w+:\/\/\S+)", " ", tweet).split())
 
 #Auth Keys
 #Deleted Check the messanger
+
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -28,35 +27,26 @@ itemsCount = 10
 tweets = tweepy.Cursor(api.search, q="#SALAH_Dont_Cry",lang="en").items(itemsCount)
 
 
-listTweets = []
-while True:
-    try:
-        tweet = tweets.next().text
-        print(cleanTweet(tweet))
-        listTweets.append(cleanTweet(tweet))
-        
-    except tweepy.TweepError:
-        time.sleep(60 * 15)
-        print("Error: ",tweepy.TweepError)
-        continue
-    except StopIteration:
-        break
-
-
-
-allText = ". ".join(listTweets)
-blob = TextBlob(allText)
+#Extract Tweets
+listTweetsObj = [tweet for tweet in tweets]
+listTweetsTxt = [cleanTweet(tweet.text) for tweet in listTweetsObj]
 
 tweetsResult = []
-for sentence in blob.sentences:
-    res = sentence.sentiment.polarity
+
+for i in listTweetsTxt:
+    blob = TextBlob(i)
+    res = blob.sentences[0].sentiment.polarity
+    resVal = 0
     if(res > 0):    
-        tweetsResult.append((res,1,str(sentence)))
+        resVal = 1
     elif(res < 0):
-        tweetsResult.append((res,-1,str(sentence)))
-    else:
-        tweetsResult.append((res,0,str(sentence)))
+        resVal = -1
 
-print(tweetsResult)
+    tweetsResult.append((res,resVal,i))
+    
 
-
+df = pd.DataFrame({"Tweets":listTweetsTxt,
+                   "date":[i.created_at for i in listTweetsObj],
+                   "analysis":[i[1] for i in tweetsResult]
+                   })
+print(df.head(5))
