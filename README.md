@@ -11,4 +11,4 @@
 
 <p>Application: The final project that will contain the Twitter api and Web interface</p>
 
-<h1>Check Demo: </h1><a href="https://nuanalytica.herokuapp.com">NU Analytica</a>
+<h1>Check Demo</h1><a href="https://nuanalytica.herokuapp.com">NU Analytica</a>
