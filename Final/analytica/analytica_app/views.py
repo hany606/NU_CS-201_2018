@@ -45,8 +45,8 @@ class AppView(View):
                 #Add percentage of pos, neu and neg tweets 
                 context['pie_chart'] = get_percentage_of_classified_tweets(
                     context['pos_tweets'],
-                    context['neu_tweets'],
-                    context['neg_tweets'])
+                    context['neg_tweets'],
+                    context['neu_tweets'])
                 
                 #Add time series of retweets over time
                 context['rts_over_time_values'] = time_series_creator(df['rts'], df['date']).tolist()
